@@ -29,11 +29,12 @@ namespace Chummer
 
 			LanguageManager.Instance.Load(GlobalOptions.Instance.Language, this);
 
-            /** Dashboard **/
-            //this.toolsMenu.DropDownItems.Add("GM Dashboard").Click += this.dashboardToolStripMenuItem_Click;
-            /** End Dashboard **/
+			/** Dashboard **/
+			//this.toolsMenu.DropDownItems.Add("GM Dashboard").Click += this.dashboardToolStripMenuItem_Click;
+			/** End Dashboard **/
 
-			// If Automatic Updates are enabled, check for updates immediately.
+			// If Automatic Updates are enabled and we're not running Nightlies, check for updates immediately.
+#if RELEASE
 			if (GlobalOptions.Instance.AutomaticUpdate)
 			{
 				frmUpdate frmAutoUpdate = new frmUpdate();
@@ -43,7 +44,6 @@ namespace Chummer
 			}
 			else
 			{
-#if RELEASE
 				frmUpdate frmAutoUpdate = new frmUpdate();
 				frmAutoUpdate.GetChummerVersion();
 				Version verCurrentVersion = new Version(strCurrentVersion);
@@ -53,8 +53,6 @@ namespace Chummer
 				if (result != 0)
 					this.Text += String.Format(" - Update {0} now available!",verLatestVersion);
 #endif
-			}
-
 			GlobalOptions.Instance.MRUChanged += PopulateMRU;
 
 			// Delete the old executable if it exists (created by the update process).

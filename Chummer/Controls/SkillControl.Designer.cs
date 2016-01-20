@@ -43,9 +43,7 @@
 			this.cmdRoll = new System.Windows.Forms.Button();
 			this.cmdBreakGroup = new System.Windows.Forms.Button();
 			this.nudKarma = new System.Windows.Forms.NumericUpDown();
-			this.chkKarma = new System.Windows.Forms.CheckBox();
 			this.lblSpec = new System.Windows.Forms.Label();
-			this.cboSpec = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.nudSkill)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudKarma)).BeginInit();
 			this.SuspendLayout();
@@ -187,7 +185,6 @@
 			this.cmdChangeSpec.TabIndex = 10;
 			this.cmdChangeSpec.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.cmdChangeSpec.UseVisualStyleBackColor = true;
-			this.cmdChangeSpec.Visible = false;
 			this.cmdChangeSpec.Click += new System.EventHandler(this.cmdChangeSpec_Click);
 			// 
 			// cmdRoll
@@ -229,16 +226,6 @@
 			this.nudKarma.TabIndex = 13;
 			this.nudKarma.ValueChanged += new System.EventHandler(this.nudKarma_ValueChanged);
 			// 
-			// chkKarma
-			// 
-			this.chkKarma.AutoSize = true;
-			this.chkKarma.Location = new System.Drawing.Point(541, 4);
-			this.chkKarma.Name = "chkKarma";
-			this.chkKarma.Size = new System.Drawing.Size(15, 14);
-			this.chkKarma.TabIndex = 14;
-			this.chkKarma.UseVisualStyleBackColor = true;
-			this.chkKarma.CheckedChanged += new System.EventHandler(this.chkKarma_CheckedChanged);
-			// 
 			// lblSpec
 			// 
 			this.lblSpec.AutoSize = true;
@@ -248,18 +235,6 @@
 			this.lblSpec.Size = new System.Drawing.Size(35, 13);
 			this.lblSpec.TabIndex = 15;
 			this.lblSpec.Text = "label1";
-			this.lblSpec.Visible = false;
-			// 
-			// cboSpec
-			// 
-			this.cboSpec.FormattingEnabled = true;
-			this.cboSpec.Location = new System.Drawing.Point(358, 0);
-			this.cboSpec.Name = "cboSpec";
-			this.cboSpec.Size = new System.Drawing.Size(177, 21);
-			this.cboSpec.Sorted = true;
-			this.cboSpec.TabIndex = 7;
-			this.cboSpec.TextChanged += new System.EventHandler(this.cboSpec_TextChanged);
-			this.cboSpec.Leave += new System.EventHandler(this.cboSpec_Leave);
 			// 
 			// SkillControl
 			// 
@@ -267,7 +242,6 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.cmdExpand);
 			this.Controls.Add(this.lblSpec);
-			this.Controls.Add(this.chkKarma);
 			this.Controls.Add(this.nudKarma);
 			this.Controls.Add(this.cmdBreakGroup);
 			this.Controls.Add(this.cmdRoll);
@@ -280,7 +254,6 @@
 			this.Controls.Add(this.cboKnowledgeSkillCategory);
 			this.Controls.Add(this.lblModifiedRating);
 			this.Controls.Add(this.cmdDelete);
-			this.Controls.Add(this.cboSpec);
 			this.Controls.Add(this.nudSkill);
 			this.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
 			this.Name = "SkillControl";
@@ -308,9 +281,7 @@
 		private System.Windows.Forms.Button cmdRoll;
 		private System.Windows.Forms.Button cmdBreakGroup;
         private System.Windows.Forms.NumericUpDown nudKarma;
-        private System.Windows.Forms.CheckBox chkKarma;
         private System.Windows.Forms.Label lblSpec;
 		private System.Windows.Forms.Button cmdExpand;
-		private System.Windows.Forms.ComboBox cboSpec;
 	}
 }

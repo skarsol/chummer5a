@@ -7484,7 +7484,13 @@ namespace Chummer
 				// If the character has a Specialization, include it in the Dice Pool string.
 				if (objSkill.Specializations.Count > 0 && !objSkill.ExoticSkill)
 				{
-                    if (objSkill.HasSpecialization(DisplayNameShort) || objSkill.HasSpecialization(_strName) || objSkill.HasSpecialization(DisplayCategory) || objSkill.HasSpecialization(_strCategory) || (objSkill.Specialization != string.Empty && (objSkill.HasSpecialization(_strSpec) || objSkill.HasSpecialization(_strSpec2))))
+					if (objSkill.HasSpecialization(DisplayNameShort) ||
+						objSkill.HasSpecialization(_strName) ||
+						objSkill.HasSpecialization(DisplayCategory) ||
+						objSkill.HasSpecialization(_strCategory) ||
+						(objSkill.Specialization != string.Empty && (objSkill.HasSpecialization(_strSpec) ||
+						(objSkill.Specialization != string.Empty && (objSkill.HasSpecialization(LanguageManager.Instance.TranslateExtra(_strSpec)) ||
+						objSkill.HasSpecialization(_strSpec2))))))
 						strReturn += " (" + (intRating + 2).ToString() + ")";
 				}
 

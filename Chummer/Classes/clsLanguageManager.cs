@@ -597,7 +597,7 @@ namespace Chummer
 						return strReturn;
 					}
 				}
-
+				// Look in Skill Specialisations.
 				XmlNodeList objNodelist = objXmlDocument.SelectNodes("/chummer/skills/skill/specs/spec");
 				foreach (XmlNode objXMLNode in objNodelist)
 				{

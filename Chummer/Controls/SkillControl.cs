@@ -76,9 +76,6 @@ namespace Chummer
 				{
 					nudSkill.Enabled = false;
 				}
-                
-                chkKarma.Checked = true;
-                chkKarma.Enabled = false;
 
                 if (_objSkill.KnowledgeSkill)
                 {
@@ -86,8 +83,6 @@ namespace Chummer
                     {
                         nudKarma.Minimum = 1;
                     }
-                    chkKarma.Checked = false;
-                    chkKarma.Enabled = true;
                 }
             }
 			_blnSkipRefresh = true;
@@ -115,11 +110,9 @@ namespace Chummer
 				int intNewRating = _objSkill.Rating + 1;
 				int intKarmaCost = 0;
 
-                chkKarma.Visible = false;
-
 				if (_objSkill.Rating < _objSkill.RatingMaximum)
 				{
-                    // active skill
+					// active skill
 					if (KnowledgeSkill == false)
 					{
 						if (_objSkill.Rating == 0)
@@ -127,94 +120,93 @@ namespace Chummer
 						else
 							intKarmaCost = (_objSkill.Rating + 1) * _objSkill.CharacterObject.Options.KarmaImproveActiveSkill;
 
-                        // Double the Karma cost if the character is Uneducated and is a Technical Active, Academic, or Professional Skill.
-                        if (_objSkill.CharacterObject.Uneducated && (SkillCategory == "Technical Active"))
-                            intKarmaCost *= 2;
-                        //Double the Karma cost if the character is Uncouth and is a Social Active Skill.
-                        if (_objSkill.CharacterObject.Uncouth && (SkillCategory == "Social Active"))
-                            intKarmaCost *= 2;
+						// Double the Karma cost if the character is Uneducated and is a Technical Active, Academic, or Professional Skill.
+						if (_objSkill.CharacterObject.Uneducated && (SkillCategory == "Technical Active"))
+							intKarmaCost *= 2;
+						//Double the Karma cost if the character is Uncouth and is a Social Active Skill.
+						if (_objSkill.CharacterObject.Uncouth && (SkillCategory == "Social Active"))
+							intKarmaCost *= 2;
 					}
 
-                    // knowledge skill
+					// knowledge skill
 					else
 					{
-                        if (_objSkill.Rating == 0)
-                            intKarmaCost = _objSkill.CharacterObject.Options.KarmaNewKnowledgeSkill;
-                        else 
-                            intKarmaCost = (_objSkill.Rating + 1) * _objSkill.CharacterObject.Options.KarmaImproveKnowledgeSkill;
+						if (_objSkill.Rating == 0)
+							intKarmaCost = _objSkill.CharacterObject.Options.KarmaNewKnowledgeSkill;
+						else
+							intKarmaCost = (_objSkill.Rating + 1) * _objSkill.CharacterObject.Options.KarmaImproveKnowledgeSkill;
 
-                        // Double the Karma cost if the character is Uneducated and is an Academic, or Professional Skill.
-                        if (_objSkill.CharacterObject.Uneducated && (SkillCategory == "Academic" || SkillCategory == "Professional"))
-                            intKarmaCost *= 2;
+						// Double the Karma cost if the character is Uneducated and is an Academic, or Professional Skill.
+						if (_objSkill.CharacterObject.Uneducated && (SkillCategory == "Academic" || SkillCategory == "Professional"))
+							intKarmaCost *= 2;
 
-                        if (_objSkill.Rating >= 3)
-                        {
-                            //Street Knowledge Skills > Rank 2 gain a 1 karma discount with the School of Hard Knocks quality.
-                            if (_objSkill.CharacterObject.SchoolOfHardKnocks && _objSkill.SkillCategory == "Street")
-                            {
-                                intKarmaCost -= 1;
-                            }
-                            //Academic Knowledge Skills > Rank 2 gain a 1 karma discount with the College Education quality.
-                            else if (_objSkill.CharacterObject.CollegeEducation && _objSkill.SkillCategory == "Academic")
-                            {
-                                intKarmaCost -= 1;
-                            }
-                            //Professional Knowledge Skills > Rank 2 gain a 1 karma discount with the Tech School quality.
-                            else if (_objSkill.CharacterObject.TechSchool && _objSkill.SkillCategory == "Professional")
-                            {
-                                intKarmaCost -= 1;
-                            }
-                            //Linguist Skills > Rank 2 gain a 1 karma discount with the Linguist quality.
-                            else if (_objSkill.CharacterObject.Linguist && _objSkill.SkillCategory == "Language")
-                            {
-                                intKarmaCost -= 1;
-                            }
-                        }
+						if (_objSkill.Rating >= 3)
+						{
+							//Street Knowledge Skills > Rank 2 gain a 1 karma discount with the School of Hard Knocks quality.
+							if (_objSkill.CharacterObject.SchoolOfHardKnocks && _objSkill.SkillCategory == "Street")
+							{
+								intKarmaCost -= 1;
+							}
+							//Academic Knowledge Skills > Rank 2 gain a 1 karma discount with the College Education quality.
+							else if (_objSkill.CharacterObject.CollegeEducation && _objSkill.SkillCategory == "Academic")
+							{
+								intKarmaCost -= 1;
+							}
+							//Professional Knowledge Skills > Rank 2 gain a 1 karma discount with the Tech School quality.
+							else if (_objSkill.CharacterObject.TechSchool && _objSkill.SkillCategory == "Professional")
+							{
+								intKarmaCost -= 1;
+							}
+							//Linguist Skills > Rank 2 gain a 1 karma discount with the Linguist quality.
+							else if (_objSkill.CharacterObject.Linguist && _objSkill.SkillCategory == "Language")
+							{
+								intKarmaCost -= 1;
+							}
+						}
 					}
 
-                    //Jack of All Trades reduces the cost by 1 for skills below 5, and increases them by 2 for skills at rank 6 or higher, minimum cost of 1
-                    if (_objSkill.CharacterObject.Created && _objSkill.CharacterObject.JackOfAllTrades)
-                    {
-                        if (_objSkill.Rating < 5)
-                        {
-                            //Jack of All Trades cannot go below 1 Karma cost. 
-                            if (intKarmaCost > 1) intKarmaCost -= 1;
-                        }
-                        else
-                        {
-                            intKarmaCost += 2;
-                        }
-                    }
+					//Jack of All Trades reduces the cost by 1 for skills below 5, and increases them by 2 for skills at rank 6 or higher, minimum cost of 1
+					if (_objSkill.CharacterObject.Created && _objSkill.CharacterObject.JackOfAllTrades)
+					{
+						if (_objSkill.Rating < 5)
+						{
+							//Jack of All Trades cannot go below 1 Karma cost. 
+							if (intKarmaCost > 1) intKarmaCost -= 1;
+						}
+						else
+						{
+							intKarmaCost += 2;
+						}
+					}
 
-                    // check for free intial point from adept linguistics
-                    ImprovementManager objImprovementManager = new ImprovementManager(_objSkill.CharacterObject);
-                    if (objImprovementManager.ValueOf(Improvement.ImprovementType.AdeptLinguistics) > 0 && SkillCategory == "Language" && SkillRating == 0)
-                        intKarmaCost = 0;
+					// check for free intial point from adept linguistics
+					ImprovementManager objImprovementManager = new ImprovementManager(_objSkill.CharacterObject);
+					if (objImprovementManager.ValueOf(Improvement.ImprovementType.AdeptLinguistics) > 0 && SkillCategory == "Language" && SkillRating == 0)
+						intKarmaCost = 0;
 
 					strTooltip = LanguageManager.Instance.GetString("Tip_ImproveItem").Replace("{0}", intNewRating.ToString()).Replace("{1}", intKarmaCost.ToString());
-                    tipTooltip.SetToolTip(cmdImproveSkill, strTooltip);
-				    cmdImproveSkill.Enabled = true;
-				} 
-                else
+					tipTooltip.SetToolTip(cmdImproveSkill, strTooltip);
+					cmdImproveSkill.Enabled = true;
+				}
+				else
 					cmdImproveSkill.Enabled = false;
 
 				nudSkill.Visible = false;
-                nudKarma.Visible = false;
+				nudKarma.Visible = false;
 				lblSkillRating.Visible = true;
 				cmdImproveSkill.Visible = true;
 
-                if (_objSkill.FreeLevels > 0)
-                    nudSkill.Minimum = _objSkill.FreeLevels;
-                else
-                    nudSkill.Minimum = 0;
+				if (_objSkill.FreeLevels > 0)
+					nudSkill.Minimum = _objSkill.FreeLevels;
+				else
+					nudSkill.Minimum = 0;
 
 				// Show the Dice Rolling button if the option is enabled.
 				if (_objSkill.CharacterObject.Options.AllowSkillDiceRolling)
 				{
 					cmdRoll.Visible = true;
 					this.Width += 30;
-					cboSpec.Left += 30;
-                    lblSpec.Left += 30;
+					lblSpec.Left += 30;
 					cmdChangeSpec.Left += 30;
 					cboKnowledgeSkillCategory.Left += 30;
 					cmdDelete.Left += 30;
@@ -222,10 +214,6 @@ namespace Chummer
 				}
 
 				lblSpec.Text = _objSkill.Specialization;
-				cboSpec.Visible = false;
-                lblSpec.Visible = true;
-				cboSpec.Enabled = false;
-				cmdChangeSpec.Visible = true;
 				if (_objSkill.ExoticSkill && (_objSkill.Rating == 0))
 				{
 					cmdChangeSpec.Image = global::Chummer.Properties.Resources.delete;
@@ -236,6 +224,7 @@ namespace Chummer
 					tipTooltip.SetToolTip(cmdChangeSpec, strTip);
 				}
 			}
+
 	        if (KnowledgeSkill)
 	        {
 		        this.Width = cmdExpand.Left + cmdExpand.Width;
@@ -252,8 +241,8 @@ namespace Chummer
 
             this.Height = lblSpec.Height + 10;
 
-            chkKarma.Checked = _objSkill.BuyWithKarma;
 			lblAttribute.Text = _objSkill.DisplayAttribute;
+			lblSpec.Text = _objSkill.Specialization;
 
 			RefreshControl();
 			_blnSkipRefresh = false;
@@ -286,35 +275,6 @@ namespace Chummer
             _objSkill.Rating = Convert.ToInt32(nudSkill.Value) + (Convert.ToInt32(nudKarma.Value));
             RefreshControl();
             RatingChanged(this);
-        }
-
-        private void cboSpec_TextChanged(object sender, EventArgs e)
-        {
-            // Raise the SpecializationChanged Event when the DropDownList's Value changes.
-            // The entire SkillControl is passed as an argument so the handling event can evaluate its contents.
-            if (!_objSkill.CharacterObject.Created || _objSkill.ExoticSkill)
-            {
-                bool blnFound = false;
-                foreach (SkillSpecialization objSpec in _objSkill.Specializations)
-                {
-                    if (objSpec.Name == cboSpec.Text)
-                    {
-                        blnFound = true;
-                        break;
-                    }
-                }
-
-                if (!blnFound)
-                {
-                    _objSkill.Specializations.Clear();
-                    if (cboSpec.Text != string.Empty)
-                    {
-                        SkillSpecialization objSpec = new SkillSpecialization(cboSpec.Text);
-                        _objSkill.Specializations.Add(objSpec);
-                    }
-                    SpecializationChanged(this);
-                }
-            }
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
@@ -363,14 +323,6 @@ namespace Chummer
 			{
 				if (!_blnSkipRefresh)
 					cboKnowledgeSkillCategory.SelectedValue = objXmlSkill["category"].InnerText;
-				cboSpec.Items.Clear();
-				foreach (XmlNode objXmlSpecialization in objXmlSkill.SelectNodes("specs/spec"))
-				{
-					if (objXmlSpecialization.Attributes["translate"] != null)
-						cboSpec.Items.Add(objXmlSpecialization.Attributes["translate"].InnerText);
-					else
-						cboSpec.Items.Add(objXmlSpecialization.InnerText);
-				}
 			}
 		}
 
@@ -437,8 +389,6 @@ namespace Chummer
 			}
 		}
 
-
-
 		private void cmdImproveSkill_Click(object sender, EventArgs e)
 		{
 			// Raise the SkillKarmaClicked Even when the Improve button is clicked.
@@ -452,117 +402,64 @@ namespace Chummer
 			{
 				DeleteSkill(this);
 			}
-			else
-			{ 
-            XmlDocument objXmlDocument = new XmlDocument();
-            objXmlDocument = XmlManager.Instance.Load("skills.xml");
-
-            // When the selected Knowledge Skill is changed, check the Skill file and build the pre-defined list of its Specializations (if any).
-            List<ListItem> lstSpecializations = new List<ListItem>();
-            XmlNode objXmlSkill;
-            if (_objSkill.KnowledgeSkill)
-            {
-                objXmlSkill = objXmlDocument.SelectSingleNode("/chummer/knowledgeskills/skill[name = \"" + _objSkill.Name + "\"]");
-                if (objXmlSkill == null)
-                    objXmlSkill = objXmlDocument.SelectSingleNode("/chummer/knowledgeskills/skill[translate = \"" + _objSkill.Name + "\"]");
-            }
-            else
-            {
-                objXmlSkill = objXmlDocument.SelectSingleNode("/chummer/skills/skill[name = \"" + _objSkill.Name + "\"]");
-                if (objXmlSkill == null)
-                    objXmlSkill = objXmlDocument.SelectSingleNode("/chummer/skills/skill[translate = \"" + _objSkill.Name + "\"]");
-            }
-            if (objXmlSkill != null)
-            {
-                if (!_blnSkipRefresh)
-                    cboKnowledgeSkillCategory.SelectedValue = objXmlSkill["category"].InnerText;
-                cboSpec.Items.Clear();
-                foreach (XmlNode objXmlSpecialization in objXmlSkill.SelectNodes("specs/spec"))
-                {
-                    bool blnFound = false;
-                    foreach(SkillSpecialization objSpecialization in _objSkill.Specializations)
-                    {
-                        if (objSpecialization.Name == objXmlSpecialization.InnerText)
-                        {
-                            blnFound = true;
-                            break;
-                        }
-                    }
-                    if (!blnFound)
-                    {
-                        ListItem objItem = new ListItem();
-							if (objXmlSpecialization.Attributes["translate"] != null)
-							{
-								objItem.Name = objXmlSpecialization.Attributes["translate"].InnerText;
-							}
-							else
-							{
-								objItem.Name = objXmlSpecialization.InnerText;
-							}
-                        objItem.Value = objXmlSpecialization.InnerText;
-                        lstSpecializations.Add(objItem);
-                    }
-                }
-            }
-
-            if (!ConfirmKarmaExpense(LanguageManager.Instance.GetString("Message_ConfirmKarmaExpenseSkillSpecialization").Replace("{0}", _objSkill.CharacterObject.Options.KarmaSpecialization.ToString())))
-                return;
-
-            frmSelectItem frmPickItem = new frmSelectItem();
-            frmPickItem.DropdownItems = lstSpecializations;
-            frmPickItem.ShowDialog();
-
-            if (frmPickItem.DialogResult == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            string strSelectedValue = frmPickItem.SelectedItem;
-
-            // charge the karma and add the spec
-            SkillSpecialization objSpec = new SkillSpecialization(strSelectedValue);
-            _objSkill.Specializations.Add(objSpec);
-
-            // Create the Expense Log Entry.
-            ExpenseLogEntry objEntry = new ExpenseLogEntry();
-            objEntry.Create(_objSkill.CharacterObject.Options.KarmaSpecialization * -1, LanguageManager.Instance.GetString("String_ExpenseLearnSpecialization") + " " + _objSkill.Name + " (" + strSelectedValue + ")", ExpenseType.Karma, DateTime.Now);
-            _objSkill.CharacterObject.ExpenseEntries.Add(objEntry);
-            _objSkill.CharacterObject.Karma -= _objSkill.CharacterObject.Options.KarmaSpecialization;
-
-            ExpenseUndo objUndo = new ExpenseUndo();
-            objUndo.CreateKarma(KarmaExpenseType.AddSpecialization, objSpec.InternalId);
-            objEntry.Undo = objUndo;
-
-            lblSpec.Text = _objSkill.Specialization;
-
-            this.Height = lblSpec.Height + 10;
-
-            RatingChanged(this);
-			}
-		}
-
-		private void cboSpec_Leave(object sender, EventArgs e)
-		{
-			if (_objSkill.CharacterObject.Created && !_objSkill.ExoticSkill)
+			if (_objSkill.CharacterObject.Created)
 			{
-				cboSpec.Enabled = false;
-				SpecializationLeave(this);
+				if (!ConfirmKarmaExpense(LanguageManager.Instance.GetString("Message_ConfirmKarmaExpenseSkillSpecialization").Replace("{0}", _objSkill.CharacterObject.Options.KarmaSpecialization.ToString())))
+					return;
 			}
+			else
+			{
+				if (_objSkill.Specializations.Count > 0 && !objCharacter.Options.AllowMultipleSpecsInCreateMode)
+				{
+					_objSkill.Specializations.Clear();
+					lblSpec.Text = "";
+				}
+			}
+			frmSelectSpec frmPickSpec = new frmSelectSpec();
+			frmPickSpec.Skill = _objSkill;
+			if (_objSkill.KnowledgeSkill)
+			{
+				frmPickSpec.Mode = "Knowledge";
+			}
+			else
+			{
+				frmPickSpec.Mode = "Active";
+            }
+			frmPickSpec.ShowDialog();
+
+			if (frmPickSpec.DialogResult == DialogResult.Cancel)
+			{
+				return;
+			}
+
+			string strSelectedValue = frmPickSpec.SelectedItem;
+
+			// charge the karma and add the spec
+			SkillSpecialization objSpec = new SkillSpecialization(strSelectedValue);
+			objSpec.BuyWithKarma = frmPickSpec.BuyWithKarma;
+			_objSkill.Specializations.Add(objSpec);
+
+			if (_objSkill.CharacterObject.Created)
+			{
+				// Create the Expense Log Entry.
+				ExpenseLogEntry objEntry = new ExpenseLogEntry();
+				objEntry.Create(_objSkill.CharacterObject.Options.KarmaSpecialization * -1, LanguageManager.Instance.GetString("String_ExpenseLearnSpecialization") + " " + _objSkill.Name + " (" + strSelectedValue + ")", ExpenseType.Karma, DateTime.Now);
+				_objSkill.CharacterObject.ExpenseEntries.Add(objEntry);
+				_objSkill.CharacterObject.Karma -= _objSkill.CharacterObject.Options.KarmaSpecialization;
+
+				ExpenseUndo objUndo = new ExpenseUndo();
+				objUndo.CreateKarma(KarmaExpenseType.AddSpecialization, objSpec.InternalId);
+				objEntry.Undo = objUndo;
+			}
+
+			lblSpec.Text = _objSkill.Specialization;
+			RatingChanged(this);
 		}
 
 		private void cmdRoll_Click(object sender, EventArgs e)
 		{
 			DiceRollerClicked(this);
 		}
-
-        private void chkKarma_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!_objSkill.CharacterObject.Created)
-            {
-                _objSkill.BuyWithKarma = chkKarma.Checked;
-                BuyWithKarmaChanged(this);
-            }
-        }
         
         private void cmdBreakGroup_Click(object sender, EventArgs e)
 		{
@@ -920,7 +817,6 @@ namespace Chummer
             }
 			set
 			{
-				cboSpec.Text = value;
 				_objSkill.Specialization = value;
 			}
         }
@@ -956,11 +852,6 @@ namespace Chummer
             }
             set
             {
-                chkKarma.Checked = value;
-                if (objCharacter.BuildMethod == CharacterBuildMethod.Karma) 
-                {
-                    chkKarma.Checked = true;
-                }
                 _objSkill.BuyWithKarma = value;
             }
         }
@@ -986,11 +877,11 @@ namespace Chummer
 				lblSkillRating.Enabled = !value;
 				nudSkill.Enabled = !value;
 				if (_objSkill.CharacterObject.Created && !_objSkill.ExoticSkill)
-					cboSpec.Enabled = false;
+					cmdChangeSpec.Enabled = false;
 				else if (!_objSkill.CharacterObject.Created && !_objSkill.ExoticSkill)
-					cboSpec.Enabled = !value;
+					cmdChangeSpec.Enabled = !value;
 				else
-					cboSpec.Enabled = true;
+					cmdChangeSpec.Enabled = true;
 
 				// If we're in Create Mode, show the Break Group button if the Skill is Grouped.
 				if (!_objSkill.CharacterObject.Created && _objSkill.IsGrouped)
@@ -1111,7 +1002,6 @@ namespace Chummer
 				objItem.Value = strSpec;
 				objItem.Name = LanguageManager.Instance.TranslateExtra(strSpec);
 			}
-            cboSpec.Items.Add(strSpec);
         }
 
         /// <summary>
@@ -1134,7 +1024,7 @@ namespace Chummer
             lblModifiedRating.Text = intRating.ToString();
 
             int intSkillRating = _objSkill.Rating;
-			foreach (Improvement objImprovement in _objCharacter.Improvements)
+			foreach (Improvement objImprovement in _objSkill.CharacterObject.Improvements)
 			{
 				if (objImprovement.ImproveType == Improvement.ImprovementType.Hardwire && objImprovement.ImprovedName == _objSkill.Name && objImprovement.Enabled)
 				{
@@ -1191,7 +1081,7 @@ namespace Chummer
                 nudSkill.Minimum = 0;
             }
 
-            if (cboSpec.Text != "" && !_objSkill.ExoticSkill)
+            if (_objSkill.Specializations.Count > 0 && !_objSkill.ExoticSkill)
             {
                 bool blnFound = false;
                 if (this.SkillName == "Artisan")
@@ -1281,16 +1171,18 @@ namespace Chummer
 			}
 
 			// Specializations should not be enabled for Active Skills in Create Mode if their Rating is 0.
-			if (!_objSkill.KnowledgeSkill && !_objSkill.ExoticSkill && !_objSkill.CharacterObject.Created)
+			if (_objSkill.KnowledgeSkill)
 			{
-				if (_objSkill.Rating > 0 && !_objSkill.IsGrouped)
-					cboSpec.Enabled = true;
+				if ((cboSkillName.Text == "") && !_objSkill.CharacterObject.Created)
+				{
+					cmdChangeSpec.Enabled = false;
+				}
 				else
 				{
-					cboSpec.Enabled = false;
-					cboSpec.Text = "";
+					cmdChangeSpec.Enabled = true;
 				}
 			}
+
 			if (!_objSkill.KnowledgeSkill && !_objSkill.ExoticSkill && _objSkill.CharacterObject.Created)
 			{
 				if (_objSkill.Rating > 0)

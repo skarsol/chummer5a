@@ -16260,8 +16260,13 @@ namespace Chummer
                             intActivePointsUsed += ((Convert.ToInt32(objSkillControl.SkillBase) + i) * _objOptions.KarmaImproveActiveSkill); 
 	                    }
                     }
-                    if (objSkillControl.SkillSpec != "" && objSkillControl.BuyWithKarma && !objSkillControl.SkillObject.ExoticSkill)
-                        intKarmaPointsRemain -= _objCharacter.Options.KarmaSpecialization;
+					foreach (SkillSpecialization objSpec in objSkillControl.SkillObject.Specializations)
+					{
+						if (objSpec.BuyWithKarma && !objSkillControl.SkillObject.ExoticSkill)
+						{
+							intKarmaPointsRemain -= _objCharacter.Options.KarmaSpecialization; 
+						}
+					}
                 }
                 intFreestyleBP += intActivePointsUsed;
                 intKarmaPointsRemain -= intActivePointsUsed;
@@ -16371,7 +16376,8 @@ namespace Chummer
                     // Specialization Cost (Exotic skills do not count since their "Spec" is actually what the Skill is being used for and cannot be Specialized).
                     if (objSkillControl.SkillSpec.Trim() != string.Empty && !objSkillControl.SkillObject.ExoticSkill)
                     {
-                        if (objSkillControl.BuyWithKarma)
+						foreach (SkillSpecialization objSpec in objSkillControl.SkillObject.Specializations)
+                        if (objSpec.BuyWithKarma)
                         {
                             // Each Specialization costs KarmaSpecialization.
                             intKarmaPointsRemain -= _objOptions.KarmaSpecialization;
@@ -16805,19 +16811,21 @@ namespace Chummer
                         intSkills += objSkillControl.SkillBase - objSkillControl.SkillObject.FreeLevels;
                     if (objSkillControl.SkillSpec.Trim() != string.Empty && !objSkillControl.SkillObject.ExoticSkill)
                     {
-                        bool blnFound = false;
                         if (objSkillControl.SkillName == "Artisan")
                         {
                             // Look for the Inspired quality to see if we get a free specialization
                             foreach (Quality objQuality in _objCharacter.Qualities)
                             {
-                                if (objQuality.Name == "Inspired")
-                                    blnFound = true;
+								if (objQuality.Name == "Inspired")
+								{
+									foreach (SkillSpecialization objSpec in objSkillControl.SkillObject.Specializations)
+									{
+										if (!objSpec.BuyWithKarma)
+										intSkills++;
+										break;
+									}
+								}
                             }
-                        }
-                        if (!blnFound && !objSkillControl.BuyWithKarma)
-                        {
-                            intSkills++;
                         }
                     }
                 }

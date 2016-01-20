@@ -801,7 +801,8 @@ namespace Chummer
 		private string _strName = "Default Settings";
 
 		// Settings.
-        private bool _blnAllow2ndMaxAttribute = false;
+		private bool _automaticBackstory = true;
+		private bool _blnAllow2ndMaxAttribute = false;
         private bool _blnAllowAttributePointsOnExceptional = false;
         private bool _blnAllowBiowareSuites = false;
         private bool _blnAllowCustomTransgenics = false;
@@ -810,6 +811,7 @@ namespace Chummer
         private bool _blnAllowExceedAttributeBP = false;
         private bool _blnAllowHigherStackedFoci = false;
         private bool _blnAllowInitiationInCreateMode = false;
+		private bool _blnAllowMultipleSpecsInCreateMode = false;
         private bool _blnAllowObsolescentUpgrade = false;
         private bool _blnAllowSkillDiceRolling = false;
         private bool _blnAllowSkillRegrouping = true;
@@ -878,7 +880,6 @@ namespace Chummer
         private int _intMetatypeCostMultiplier = 1;
         private int _intNuyenPerBP = 2000;
         private int _intRestrictedCostMultiplier = 1;
-		private bool _automaticBackstory = true;
 
 		private readonly XmlDocument _objBookDoc = new XmlDocument();
         private string _strBookXPath = "";
@@ -1152,7 +1153,11 @@ namespace Chummer
 			objWriter.WriteElementString("specialattributekarmalimit", _blnSpecialAttributeKarmaLimit.ToString());
 			// <technomancerallowautosoft />
 			objWriter.WriteElementString("technomancerallowautosoft", _blnTechnomancerAllowAutosoft.ToString());
+			// <autobackstory />
 			objWriter.WriteElementString("autobackstory", _automaticBackstory.ToString());
+			// <allowmultiplespecsincreatemode />
+			objWriter.WriteElementString("allowmultiplespecsincreatemode", _blnAllowMultipleSpecsInCreateMode.ToString());
+			
 
 			// <bpcost>
 			objWriter.WriteStartElement("bpcost");
@@ -1851,6 +1856,14 @@ namespace Chummer
 			try
 			{
 				_blnTechnomancerAllowAutosoft = Convert.ToBoolean(objXmlDocument.SelectSingleNode("/settings/technomancerallowautosoft").InnerText);
+			}
+			catch
+			{
+			}
+			// House rule: Whether characters may purchase multiple specialisations in create mode.
+			try
+			{
+				_blnTechnomancerAllowAutosoft = Convert.ToBoolean(objXmlDocument.SelectSingleNode("/settings/allowmultiplespecsincreatemode").InnerText);
 			}
 			catch
 			{
@@ -3573,6 +3586,21 @@ namespace Chummer
 			set
 			{
 				_blnTechnomancerAllowAutosoft = value;
+			}
+		}
+
+		/// <summary>
+		/// Whether characters in Creation Mode can purchase multiple specialisations.
+		/// </summary>
+		public bool AllowMultipleSpecsInCreateMode
+		{
+			get
+			{
+				return _blnAllowMultipleSpecsInCreateMode;
+			}
+			set
+			{
+				_blnAllowMultipleSpecsInCreateMode = value;
 			}
 		}
 		#endregion

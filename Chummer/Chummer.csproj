@@ -208,6 +208,12 @@
     <Compile Include="frmGMDashboard.Designer.cs">
       <DependentUpon>frmGMDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Selection Forms\frmSelectSkillSpec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Selection Forms\frmSelectSkillSpec.Designer.cs">
+      <DependentUpon>frmSelectSkillSpec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Selection Forms\frmSelectOptionalPower.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +762,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmGMDashboard.resx">
       <DependentUpon>frmGMDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Selection Forms\frmSelectSkillSpec.resx">
+      <DependentUpon>frmSelectSkillSpec.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Selection Forms\frmSelectOptionalPower.resx">
       <DependentUpon>frmSelectOptionalPower.cs</DependentUpon>

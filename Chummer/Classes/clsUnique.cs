@@ -2798,7 +2798,7 @@ namespace Chummer
         {
             foreach (SkillSpecialization objSpec in _lstSpecializations)
             {
-                if (objSpec.Name == strSpec)
+                if (objSpec.Name == strSpec || objSpec.DisplayName == strSpec)
                 {
                     return true;
                 }
@@ -4070,6 +4070,7 @@ namespace Chummer
 		private Guid _guiID = new Guid();
 		private string _strName = "";
 		private string _strDisplayName = "";
+		private bool _blnBuyWithKarma = false;
 
 		#region Constructor, Create, Save, Load, and Print Methods
 		public SkillSpecialization(string strName)
@@ -4086,7 +4087,7 @@ namespace Chummer
 		{
 			objWriter.WriteStartElement("skillspecialization");
             objWriter.WriteElementString("guid", _guiID.ToString());
-			//objWriter.WriteElementString("displayname", _strDisplayName.ToString());
+			objWriter.WriteElementString("buywithkarma", _blnBuyWithKarma.ToString());
 			objWriter.WriteElementString("name", _strName);
 			objWriter.WriteEndElement();
 		}
@@ -4099,7 +4100,7 @@ namespace Chummer
 		{
             _guiID = Guid.Parse(objNode["guid"].InnerText);
             _strName = objNode["name"].InnerText;
-			objNode.TryGetField("displayname", out _strDisplayName);
+			objNode.TryGetField("buywithkarma", out _blnBuyWithKarma);
 		}
 
 		/// <summary>
@@ -4111,6 +4112,7 @@ namespace Chummer
 
 			objWriter.WriteStartElement("skillspecialization");
 			objWriter.WriteElementString("displayname", Name);
+			objWriter.WriteElementString("buywithkarma", _blnBuyWithKarma.ToString());
 			objWriter.WriteEndElement();
 		}
 		#endregion
@@ -4139,6 +4141,21 @@ namespace Chummer
 			set
 			{
 				_strName = value;
+			}
+		}
+
+		/// <summary>
+		/// Was the Specialisation bought with karma during chargen?
+		/// </summary>
+		public bool BuyWithKarma
+		{
+			get
+			{
+				return _blnBuyWithKarma;
+			}
+			set
+			{
+				_blnBuyWithKarma = value;
 			}
 		}
 
