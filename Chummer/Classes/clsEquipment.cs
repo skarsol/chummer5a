@@ -13694,8 +13694,13 @@ namespace Chummer
 	public class Vehicle
 	{
 		private Guid _guiID = new Guid();
+		// Name assigned by the rules
 		private string _strName = "";
+		// Custom name supplied by the player
+		private string _strVehicleName = "";
 		private string _strCategory = "";
+		
+		// Stats
 		private int _intHandling = 0;
 		private int _intOffroadHandling = 0;
 		private int _intAccel = 0;
@@ -13705,11 +13710,11 @@ namespace Chummer
 		private int _intArmor = 0;
 		private int _intSensor = 0;
         private int _intSeats = 0;
+		private int _intModslots = 0;
 		private string _strAvail = "";
 		private string _strCost = "";
 		private string _strSource = "";
 		private string _strPage = "";
-		private string _strVehicleName = "";
 		private int _intAddSlots = 0;
 		private int _intDeviceRating = 3;
 		private bool _blnHomeNode = false;
@@ -13768,6 +13773,13 @@ namespace Chummer
 			_intSensor = Convert.ToInt32(objXmlVehicle["sensor"].InnerText);
 			try
 			{
+				_intModslots = Convert.ToInt32(objXmlVehicle["modslots"].InnerText);
+			}
+			catch
+			{
+			}
+			try
+			{
 				_intDeviceRating = Convert.ToInt32(objXmlVehicle["devicerating"].InnerText);
 			}
 			catch
@@ -13782,7 +13794,7 @@ namespace Chummer
             }
             _strAvail = objXmlVehicle["avail"].InnerText;
 			_strCost = objXmlVehicle["cost"].InnerText;
-            // Check for a Variable Cost.
+            // Check for a Variable Cost. Prompt the user for a value.
             if (objXmlVehicle["cost"].InnerText.StartsWith("Variable"))
             {
                 int intMin = 0;
