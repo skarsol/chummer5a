@@ -2036,7 +2036,7 @@ namespace Chummer
 
 			if (!GlobalOptions.Instance.Dronemods)
 			{
-				strPath += " and not(optionaldrone)";
+				strPath += " and not(tags[tag = 'drone'] and tags[tag = 'optional']) ";
 			}
 			_strBookXPath = strPath;
 			
