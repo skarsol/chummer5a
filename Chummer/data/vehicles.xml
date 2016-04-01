@@ -3640,6 +3640,7 @@
 			<speed>2</speed>
 			<pilot>5</pilot>
 			<body>6</body>
+			<modslots>0</modslots>
 			<armor>18</armor>
 			<sensor>3</sensor>
 			<seats>0</seats>
@@ -4139,9 +4140,6 @@
 			<armor>6</armor>
 			<sensor>2</sensor>
 			<seats>4</seats>
-			<mods>
-				<addslots>4</addslots>
-			</mods>
 			<gears>
 				<gear rating="2">Sensor Array</gear>
 			</gears>
@@ -4329,9 +4327,6 @@
 			<armor>12</armor>
 			<sensor>2</sensor>
 			<seats>6</seats>
-			<mods>
-				<addslots>4</addslots>
-			</mods>
 			<gears>
 				<gear rating="2">Sensor Array</gear>
 			</gears>
