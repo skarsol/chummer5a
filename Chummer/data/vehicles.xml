@@ -6841,6 +6841,9 @@
 			<slots>0</slots>
 			<avail>FixedValues(2,4,8,12R)</avail>
 			<cost>FixedValues(Body * Body * 100,Body * Body * 500,Body * Body * 1000,Body * Body * 5000)</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>125</page>
 		</mod>
@@ -7020,6 +7023,7 @@
 			<tags>
 				<tag>optional</tag>
 				<tag>drone</tag>
+				<tag>overrides</tag>
 			</tags>
 			<rating>0</rating>
 			<bonus>
