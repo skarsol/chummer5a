@@ -5364,6 +5364,9 @@
 			<slots>0</slots>
 			<avail>12R</avail>
 			<cost>Body * 2000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>SS</source>
 			<page>174</page>
 		</mod>
@@ -5510,6 +5513,9 @@
 			<slots>FixedValues(4,8)</slots>
 			<avail>6</avail>
 			<cost>FixedValues(Acceleration * 10000,Acceleration * 25000)</cost>
+			<depends>
+				<accel/>
+			</depends>
 			<source>R5</source>
 			<page>154</page>
 		</mod>
@@ -5552,6 +5558,9 @@
 			</required>
 			<avail>12R</avail>
 			<cost>Body * 3000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>154</page>
 		</mod>
@@ -5566,6 +5575,9 @@
 			<slots>10</slots>
 			<avail>16R</avail>
 			<cost>Body * 4000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>154</page>
 		</mod>
@@ -5579,7 +5591,10 @@
 			</bonus>
 			<slots>FixedValues(4,10,18)</slots>
 			<avail>FixedValues(6,8,10)</avail>
-			<cost>FixedValues(Rating*2000,Rating*5000,Rating*12000)</cost>
+			<cost>FixedValues(Handling*2000,Handling*5000,Handling*12000)</cost>
+			<depends>
+				<handling/>
+			</depends>
 			<source>R5</source>
 			<page>154</page>
 		</mod>
@@ -5613,6 +5628,9 @@
 			<slots>4</slots>
 			<avail>10</avail>
 			<cost>Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>155</page>
 		</mod>
@@ -5628,6 +5646,9 @@
 			<slots>2</slots>
 			<avail>4</avail>
 			<cost>Vehicle Cost * 0.25</cost>
+			<depends>
+				<cost/>
+			</depends>
 			<source>R5</source>
 			<page>155</page>
 		</mod>
@@ -5661,6 +5682,9 @@
 			<slots>10</slots>
 			<avail>16F</avail>
 			<cost>Body * 5000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>156</page>
 		</mod>
@@ -5683,6 +5707,9 @@
 			<slots>4</slots>
 			<avail>6</avail>
 			<cost>Body * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>156</page>
 		</mod>
@@ -5694,6 +5721,9 @@
 			<slots>8</slots>
 			<avail>12R</avail>
 			<cost>Body * 2000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>156</page>
 		</mod>
@@ -5705,6 +5735,9 @@
 			<slots>8</slots>
 			<avail>12</avail>
 			<cost>Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>156</page>
 		</mod>
@@ -5727,6 +5760,9 @@
 			<slots>6</slots>
 			<avail>10</avail>
 			<cost>Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>157</page>
 		</mod>
@@ -5738,6 +5774,9 @@
 			<slots>8</slots>
 			<avail>12</avail>
 			<cost>Body * 2000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>157</page>
 		</mod>
@@ -5752,6 +5791,9 @@
 			<slots>FixedValues(5,14,20)</slots>
 			<avail>FixedValues(6,8,12)</avail>
 			<cost>FixedValues(Speed * 2000,Speed * 5000,Speed * 12000)</cost>
+			<depends>
+				<speed/>
+			</depends>
 			<source>R5</source>
 			<page>157</page>
 		</mod>
@@ -6228,6 +6270,9 @@
 			<slots>2</slots>
 			<avail>12F</avail>
 			<cost>Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>163</page>
 		</mod>
@@ -6316,6 +6361,9 @@
 			<slots>Rating</slots>
 			<avail>(Rating * 3)R</avail>
 			<cost>Rating * Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>165</page>
 		</mod>
@@ -6393,6 +6441,9 @@
 			<slots>2</slots>
 			<avail>6R</avail>
 			<cost>Body * 500</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>166</page>
 		</mod>
@@ -6498,6 +6549,9 @@
 			<slots>2</slots>
 			<avail>6</avail>
 			<cost>Body * 500</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>168</page>
 		</mod>
@@ -6509,6 +6563,9 @@
 			<slots>3</slots>
 			<avail>8</avail>
 			<cost>Body * 500</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>169</page>
 		</mod>
@@ -6687,6 +6744,9 @@
 			<slots>1</slots>
 			<avail>4R</avail>
 			<cost>Body * 150</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>125</page>
 		</mod>
@@ -6796,6 +6856,9 @@
 			<slots>1</slots>
 			<avail>0</avail>
 			<cost>Body * Body * 100</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>125</page>
 		</mod>
@@ -6811,6 +6874,9 @@
 			<slots>2</slots>
 			<avail>0</avail>
 			<cost>Body * Body * 1000</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>125</page>
 		</mod>
@@ -6826,6 +6892,9 @@
 			<slots>1</slots>
 			<avail>0</avail>
 			<cost>Body * 100</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>125</page>
 		</mod>
@@ -7005,6 +7074,9 @@
 			<slots>0</slots>
 			<avail>0</avail>
 			<cost>Body * 300</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>126</page>
 		</mod>
@@ -7020,6 +7092,9 @@
 			<slots>0</slots>
 			<avail>0</avail>
 			<cost>Body * 75</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>126</page>
 		</mod>
@@ -7068,6 +7143,9 @@
 			<slots>Rating</slots>
 			<avail>Rating * 2</avail>
 			<cost>Body * Rating * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7087,6 +7165,9 @@
 				<speed>Rating</speed>
 			</bonus>
 			<cost>Body * Rating * 400</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7106,6 +7187,9 @@
 			</bonus>
 			<avail>Rating * 4</avail>
 			<cost>Body * Rating * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7143,6 +7227,9 @@
 			<slots>Rating</slots>
 			<avail>Rating</avail>
 			<cost>Rating * Body * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7162,6 +7249,9 @@
 			<slots>Rating</slots>
 			<avail>RatingR</avail>
 			<cost>Rating * Body * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7181,6 +7271,9 @@
 			<slots>Rating</slots>
 			<avail>RatingF</avail>
 			<cost>Rating * Body * 200</cost>
+			<depends>
+				<body/>
+			</depends>
 			<source>R5</source>
 			<page>123</page>
 		</mod>
@@ -7230,6 +7323,9 @@
 			<slots>0</slots>
 			<avail>0</avail>
 			<cost>Vehicle Cost * 0.05</cost>
+			<depends>
+				<cost/>
+			</depends>
 			<source>RF</source>
 			<page>157</page>
 		</mod>

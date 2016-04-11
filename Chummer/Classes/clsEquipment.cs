@@ -12682,6 +12682,7 @@ namespace Chummer
 		private string _strCost = "";
 		private string _strAvail = "";
 		private XmlNode _nodBonus;
+		private XmlNode _nodDepends;
 		private string _strSource = "";
 		private string _strPage = "";
 		private bool _blnIncludeInVehicle = false;
@@ -12707,7 +12708,7 @@ namespace Chummer
 		private int _intBody = 0;
 		private int _intSpeed = 0;
 		private int _intAccel = 0;
-
+		
 		private readonly Character _objCharacter;
 
 		#region Constructor, Create, Save, Load, and Print Methods
@@ -12792,6 +12793,8 @@ namespace Chummer
 			_strPage = objXmlMod["page"].InnerText;
 			if (objXmlMod["bonus"] != null)
 				_nodBonus = objXmlMod["bonus"];
+			if (objXmlMod["depends"] != null)
+				_nodDepends = objXmlMod["depends"];
 
 			if (GlobalOptions.Instance.Language != "en-us")
 			{
@@ -12858,6 +12861,8 @@ namespace Chummer
 			}
 			if (_nodBonus != null)
 				objWriter.WriteRaw(_nodBonus.OuterXml);
+			if (_nodDepends != null)
+				objWriter.WriteRaw(_nodDepends.OuterXml);
 			objWriter.WriteElementString("notes", _strNotes);
 			objWriter.WriteElementString("discountedcost", DiscountCost.ToString());
 			objWriter.WriteEndElement();
@@ -12914,6 +12919,13 @@ namespace Chummer
 			try
 			{
 				_nodBonus = objNode["bonus"];
+			}
+			catch
+			{
+			}
+			try
+			{
+				_nodDepends = objNode["depends"];
 			}
 			catch
 			{
@@ -13286,7 +13298,22 @@ namespace Chummer
 			set
 			{
 				_nodBonus = value;
+
+			/// <summary>
+			/// Depends node.
+			/// </summary>
+		public XmlNode Depends
+		{
+			get
+			{
+				return _nodDepends;
 			}
+			set
+			{
+				_nodDepends = value;
+			}
+		}
+	}
 		}
 
 		/// <summary>
@@ -13318,7 +13345,7 @@ namespace Chummer
 				_blnInstalled = value;
 			}
 		}
-
+		
 		// Properties used to calculate the Mod's cost from the Vehicle.
 		public int VehicleCost
 		{
@@ -13729,6 +13756,20 @@ namespace Chummer
 		private bool _blnDealerConnectionDiscount = false;
 		private bool _blnBlackMarketDiscount = false;
 
+		// Derived values
+		private int _intTotalHandling = 0;
+		private int _intTotalOffroadHandling = 0;
+		private int _intTotalAccel = 0;
+		private int _intTotalSpeed = 0;
+		private int _intTotalPilot = 0;
+		private int _intTotalBody = 0;
+		private int _intTotalArmor = 0;
+		private int _intTotalSensor = 0;
+		private int _intTotalSeats = 0;
+		private int _intTotalModslots = 0;
+		private string _strTotalAvail = "";
+		private string _strTotalCost = "";
+
 		private readonly Character _objCharacter;
 
 		// Condition Monitor Progress.
@@ -14044,6 +14085,7 @@ namespace Chummer
             objWriter.WriteElementString("seats", _intSeats.ToString());
 			objWriter.WriteElementString("armor", _intArmor.ToString());
 			objWriter.WriteElementString("sensor", _intSensor.ToString());
+			objWriter.WriteElementString("modslots", _intModslots.ToString());
 			objWriter.WriteElementString("devicerating", TotalDeviceRating.ToString());
 			objWriter.WriteElementString("avail", _strAvail);
 			objWriter.WriteElementString("cost", _strCost);
@@ -14124,6 +14166,7 @@ namespace Chummer
 			_intBody = Convert.ToInt32(objNode["body"].InnerText);
 			_intArmor = Convert.ToInt32(objNode["armor"].InnerText);
 			_intSensor = Convert.ToInt32(objNode["sensor"].InnerText);
+			_intModslots = Convert.ToInt32(objNode["modslots"].InnerText);
 			objNode.TryGetField("devicerating", out _intDeviceRating);
 			_strAvail = objNode["avail"].InnerText;
 			_strCost = objNode["cost"].InnerText;
@@ -14241,8 +14284,9 @@ namespace Chummer
 			objWriter.WriteElementString("pilot", Pilot.ToString());
 			objWriter.WriteElementString("body", TotalBody.ToString());
 			objWriter.WriteElementString("armor", TotalArmor.ToString());
-            objWriter.WriteElementString("seats", _intSeats.ToString());
-            if (_objCharacter.Options.UseCalculatedVehicleSensorRatings)
+			objWriter.WriteElementString("seats", _intSeats.ToString());
+			objWriter.WriteElementString("modslots", _intModslots.ToString());
+			if (_objCharacter.Options.UseCalculatedVehicleSensorRatings)
 				objWriter.WriteElementString("sensor", CalculatedSensor.ToString());
 			else
 				objWriter.WriteElementString("sensor", _intSensor.ToString());
@@ -15157,6 +15201,34 @@ namespace Chummer
 			}
 		}
 
+		// Apply all modifications from addon equipment
+		public void ApplyModifications()
+		{
+			int intTotalHandling = _intHandling;
+			int intTotalOffroadHandling = _intOffroadHandling;
+			int intTotalAccel = _intAccel;
+			int intTotalSpeed = _intSpeed;
+			int intTotalPilot = _intPilot;
+			int intTotalBody = _intBody;
+			int intTotalArmor = _intArmor;
+			int intTotalSensor = _intSensor;
+			int intTotalSeats = _intSeats;
+			int intTotalModslots = _intModslots;
+			string strTotalAvail = _strAvail;
+			string strTotalCost = _strCost;
+
+			List<VehicleMod> depends = new List<VehicleMod>();
+			
+			// Loop through each Mod to process independent mods and save dependant ones
+			foreach (VehicleMod objMod in _lstVehicleMods)
+			{
+				if (!objMod.IncludedInVehicle && objMod.Installed && objMod.Bonus != null)
+				{
+				
+				}
+			}
+		}
+
 		/// <summary>
 		/// Total Speed of the Vehicle including Modifications.
 		/// </summary>
@@ -15215,9 +15287,9 @@ namespace Chummer
 							{
 								string strAccel = objMod.Bonus["accel"].InnerText.Replace("Rating", objMod.Rating.ToString()).Replace("+", string.Empty);
 								intTotalAccel = Convert.ToInt32(strAccel, GlobalOptions.Instance.CultureInfo);
+							}
 						}
 					}
-				}
 				}
 
 				return intTotalAccel;
