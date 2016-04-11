@@ -7226,6 +7226,9 @@
 			<rating>6</rating>
 			<bonus>
 				<armor>Rating</armor>
+				<speed>-(floor((Rating - (Body * 3)) div 3))</speed>
+				<handling>-(floor((Rating - (Body * 3)) div 3))</handling>
+				<acceleration>-(floor((Rating - (Body * 3)) div 6))</acceleration>
 			</bonus>
 			<minrating>Armor + 1</minrating>
 			<slots>Rating</slots>
@@ -7248,6 +7251,9 @@
 			<rating>12</rating>
 			<bonus>
 				<armor>Rating</armor>
+				<speed>-(floor((Rating - (Body * 3)) div 3))</speed>
+				<handling>-(floor((Rating - (Body * 3)) div 3))</handling>
+				<acceleration>-(floor((Rating - (Body * 3)) div 6))</acceleration>
 			</bonus>
 			<minrating>6</minrating>
 			<slots>Rating</slots>
@@ -7270,9 +7276,12 @@
 			<rating>99</rating>
 			<bonus>
 				<armor>Rating</armor>
+				<speed>-(floor((Rating - (Body * 3)) div 3))</speed>
+				<handling>-(floor((Rating - (Body * 3)) div 3))</handling>
+				<acceleration>-(floor((Rating - (Body * 3)) div 6))</acceleration>
 			</bonus>
 			<minrating>12</minrating>
-			<slots>Rating</slots>
+			<slots>Rating / 3</slots>
 			<avail>RatingF</avail>
 			<cost>Rating * Body * 200</cost>
 			<depends>
