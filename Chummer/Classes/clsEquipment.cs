@@ -13290,7 +13290,8 @@ namespace Chummer
 			set
 			{
 				_nodBonus = value;
-
+			}
+		}
 			/// <summary>
 			/// Depends node.
 			/// </summary>
@@ -13305,8 +13306,8 @@ namespace Chummer
 				_nodDepends = value;
 			}
 		}
-	}
-		}
+	
+		
 
 		/// <summary>
 		/// Whether or not the Mod included with the Vehicle by default.
