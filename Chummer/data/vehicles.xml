@@ -6381,7 +6381,7 @@
 			<rating>0</rating>
 			<slots>1</slots>
 			<avail>12</avail>
-			<cost>50000</cost>
+			<cost>5000</cost>
 			<source>R5</source>
 			<page>166</page>
 		</mod>
@@ -6469,7 +6469,7 @@
 			<id>de59fe6d-b61b-4f28-b6e4-d8b022fd8bb0</id>
 			<name>Sensor Enhancement</name>
 			<category>Electromagnetic</category>
-			<rating>3</rating>
+			<rating>6</rating>
 			<bonus>
 				<sensor>Rating</sensor>
 			</bonus>
@@ -6477,7 +6477,7 @@
 			<avail>FixedValues(Rating * 2,Rating * 2,Rating * 2,Rating * 3,Rating * 3,Rating * 3)</avail>
 			<cost>FixedValues(Rating * 2000,Rating * 2000,Rating * 2000,Rating * 5000,Rating * 5000,Rating * 5000)</cost>
 			<source>R5</source>
-			<page>167</page>
+			<page>168</page>
 		</mod>
 		<mod>
 			<id>a249d87f-ec07-4716-9c62-e26061e80eac</id>
