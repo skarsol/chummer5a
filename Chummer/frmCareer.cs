@@ -6631,8 +6631,8 @@ namespace Chummer
 			// Update the Used Vehicle information if applicable.
 			if (frmPickVehicle.UsedVehicle)
 			{
-				objVehicle.Avail = frmPickVehicle.UsedAvail;
-				objVehicle.Cost = frmPickVehicle.UsedCost.ToString();
+				objVehicle.BaseAvail = frmPickVehicle.UsedAvail;
+				objVehicle.BaseCost = frmPickVehicle.UsedCost.ToString();
 			}
 
 			int intCost = objVehicle.TotalCost;
@@ -6760,7 +6760,7 @@ namespace Chummer
 							return;
 
 						int intPercentage = frmModPercent.SelectedValue;
-						int intVehicleCost = Convert.ToInt32(objFoundVehicle.Cost);
+						int intVehicleCost = Convert.ToInt32(objFoundVehicle.BaseCost);
 						
 						// Make sure the character has enough Nuyen for the expense.
 						int intCost = Convert.ToInt32(Convert.ToDouble(intVehicleCost, GlobalOptions.Instance.CultureInfo) * (Convert.ToDouble(intPercentage, GlobalOptions.Instance.CultureInfo) / 100.0), GlobalOptions.Instance.CultureInfo);
@@ -19534,8 +19534,8 @@ namespace Chummer
 				_objCharacter.HasHomeNode = chkVehicleHomeNode.Checked;
 				_objCharacter.HomeNodeCategory = "Vehicle";
 				_objCharacter.HomeNodeDataProcessing = 0;
-				_objCharacter.HomeNodePilot = objVehicle.Pilot;
-				_objCharacter.HomeNodeHandling = objVehicle.TotalHandling;
+				_objCharacter.HomeNodePilot = objVehicle.TotalPilot;
+				_objCharacter.HomeNodeHandling = objVehicle.StrHandling;
 				_objCharacter.HomeNodeSensor = objVehicle.CalculatedSensor;
 			}
 			else
@@ -25626,13 +25626,13 @@ namespace Chummer
 				lblVehicleAccel.Text = objVehicle.TotalAccel.ToString();
 				lblVehicleSpeed.Text = objVehicle.TotalSpeed.ToString();
 				lblVehicleDevice.Text = objVehicle.DeviceRating.ToString();
-				lblVehiclePilot.Text = objVehicle.Pilot.ToString();
+				lblVehiclePilot.Text = objVehicle.TotalPilot.ToString();
 				lblVehicleBody.Text = objVehicle.TotalBody.ToString();
 				lblVehicleArmor.Text = objVehicle.TotalArmor.ToString();
                 if (_objOptions.UseCalculatedVehicleSensorRatings)
                     lblVehicleSensor.Text = objVehicle.CalculatedSensor.ToString();
                 else
-                    lblVehicleSensor.Text = objVehicle.Sensor.ToString();
+                    lblVehicleSensor.Text = objVehicle.TotalSensor.ToString();
 				lblVehicleSlots.Text = objVehicle.Slots.ToString() + " (" + (objVehicle.Slots - objVehicle.SlotsUsed).ToString() + " " + LanguageManager.Instance.GetString("String_Remaining") + ")";
 				string strBook = _objOptions.LanguageBookShort(objVehicle.Source);
 				string strPage = objVehicle.Page;
@@ -25695,11 +25695,11 @@ namespace Chummer
 					{
 						if (objMod.MaxRating == "Seats")
 						{
-							objMod.MaxRating = objSelectedVehicle.Seats.ToString();
+							objMod.MaxRating = objSelectedVehicle.TotalSeats.ToString();
 						}
 						if (objMod.MaxRating == "body")
 						{
-							objMod.MaxRating = objSelectedVehicle.Body.ToString();
+							objMod.MaxRating = objSelectedVehicle.TotalBody.ToString();
 						}
 						if (Convert.ToInt32(objMod.MaxRating) > 0)
 						{
@@ -25920,7 +25920,7 @@ namespace Chummer
 						cmdVehicleMoveToInventory.Enabled = true;
 
 						// Determine the Dice Pool size.
-						int intPilot = objCurrentVehicle.Pilot;
+						int intPilot = objCurrentVehicle.TotalPilot;
 						int intAutosoft = 0;
 						bool blnAutosoftFound = false;
 						foreach (Gear objAutosoft in objCurrentVehicle.Gear)
@@ -26121,7 +26121,7 @@ namespace Chummer
 						cmdVehicleMoveToInventory.Enabled = true;
 
 						// Determine the Dice Pool size.
-						int intPilot = objCurrentVehicle.Pilot;
+						int intPilot = objCurrentVehicle.TotalPilot;
 						int intAutosoft = 0;
 						bool blnAutosoftFound = false;
 						foreach (Gear objAutosoft in objCurrentVehicle.Gear)
@@ -26404,7 +26404,7 @@ namespace Chummer
 							tipTooltip.SetToolTip(lblVehicleSource, _objOptions.LanguageBookLong(objWeapon.Source) + " " + LanguageManager.Instance.GetString("String_Page") + " " + objWeapon.Page);
 
 							// Determine the Dice Pool size.
-							int intPilot = objCurrentVehicle.Pilot;
+							int intPilot = objCurrentVehicle.TotalPilot;
 							int intAutosoft = 0;
 							bool blnAutosoftFound = false;
 							foreach (Gear objAutosoft in objCurrentVehicle.Gear)

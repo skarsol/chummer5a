@@ -12674,6 +12674,7 @@ namespace Chummer
 		private string _strCost = "";
 		private string _strAvail = "";
 		private XmlNode _nodBonus;
+		private XmlNode _nodTags;
 		private XmlNode _nodDepends;
 		private string _strSource = "";
 		private string _strPage = "";
@@ -12785,6 +12786,8 @@ namespace Chummer
 			_strPage = objXmlMod["page"].InnerText;
 			if (objXmlMod["bonus"] != null)
 				_nodBonus = objXmlMod["bonus"];
+			if (objXmlMod["tags"] != null)
+				_nodTags = objXmlMod["tags"];
 			if (objXmlMod["depends"] != null)
 				_nodDepends = objXmlMod["depends"];
 
@@ -12853,6 +12856,8 @@ namespace Chummer
 			}
 			if (_nodBonus != null)
 				objWriter.WriteRaw(_nodBonus.OuterXml);
+			if (_nodTags != null)
+				objWriter.WriteRaw(_nodTags.OuterXml);
 			if (_nodDepends != null)
 				objWriter.WriteRaw(_nodDepends.OuterXml);
 			objWriter.WriteElementString("notes", _strNotes);
@@ -12911,6 +12916,13 @@ namespace Chummer
 			try
 			{
 				_nodBonus = objNode["bonus"];
+			}
+			catch
+			{
+			}
+			try
+			{
+				_nodTags = objNode["tags"];
 			}
 			catch
 			{
@@ -13292,9 +13304,23 @@ namespace Chummer
 				_nodBonus = value;
 			}
 		}
-			/// <summary>
-			/// Depends node.
-			/// </summary>
+		/// <summary>
+		/// Tags node.
+		/// </summary>
+		public XmlNode Tags
+		{
+			get
+			{
+				return _nodTags;
+			}
+			set
+			{
+				_nodTags = value;
+			}
+		}
+		/// <summary>
+		/// Depends node.
+		/// </summary>
 		public XmlNode Depends
 		{
 			get
@@ -13719,7 +13745,7 @@ namespace Chummer
 		// Custom name supplied by the player
 		private string _strVehicleName = "";
 		private string _strCategory = "";
-		
+
 		// Stats
 		private int _intHandling = 0;
 		private int _intOffroadHandling = 0;
@@ -13729,7 +13755,7 @@ namespace Chummer
 		private int _intBody = 0;
 		private int _intArmor = 0;
 		private int _intSensor = 0;
-        private int _intSeats = 0;
+		private int _intSeats = 0;
 		private int _intModslots = 0;
 		private string _strAvail = "";
 		private string _strCost = "";
@@ -14075,10 +14101,20 @@ namespace Chummer
 			objWriter.WriteElementString("speed", _intSpeed.ToString());
 			objWriter.WriteElementString("pilot", _intPilot.ToString());
 			objWriter.WriteElementString("body", _intBody.ToString());
-            objWriter.WriteElementString("seats", _intSeats.ToString());
+			objWriter.WriteElementString("seats", _intSeats.ToString());
 			objWriter.WriteElementString("armor", _intArmor.ToString());
 			objWriter.WriteElementString("sensor", _intSensor.ToString());
 			objWriter.WriteElementString("modslots", _intModslots.ToString());
+			objWriter.WriteElementString("totalhandling", _intTotalHandling.ToString());
+			objWriter.WriteElementString("totaloffroadhandling", _intTotalOffroadHandling.ToString());
+			objWriter.WriteElementString("totalaccel", _intTotalAccel.ToString());
+			objWriter.WriteElementString("totalspeed", _intTotalSpeed.ToString());
+			objWriter.WriteElementString("totalpilot", _intTotalPilot.ToString());
+			objWriter.WriteElementString("totalbody", _intTotalBody.ToString());
+			objWriter.WriteElementString("totalseats", _intTotalSeats.ToString());
+			objWriter.WriteElementString("totalarmor", _intTotalArmor.ToString());
+			objWriter.WriteElementString("totalsensor", _intTotalSensor.ToString());
+			objWriter.WriteElementString("totalmodslots", _intTotalModslots.ToString());
 			objWriter.WriteElementString("devicerating", TotalDeviceRating.ToString());
 			objWriter.WriteElementString("avail", _strAvail);
 			objWriter.WriteElementString("cost", _strCost);
@@ -14159,7 +14195,7 @@ namespace Chummer
 			_intBody = Convert.ToInt32(objNode["body"].InnerText);
 			_intArmor = Convert.ToInt32(objNode["armor"].InnerText);
 			_intSensor = Convert.ToInt32(objNode["sensor"].InnerText);
-			_intModslots = Convert.ToInt32(objNode["modslots"].InnerText);
+			objNode.TryGetField("modslots", out _intModslots);
 			objNode.TryGetField("devicerating", out _intDeviceRating);
 			_strAvail = objNode["avail"].InnerText;
 			_strCost = objNode["cost"].InnerText;
@@ -14274,7 +14310,7 @@ namespace Chummer
 			objWriter.WriteElementString("handling", TotalHandling.ToString());
 			objWriter.WriteElementString("accel", TotalAccel.ToString());
 			objWriter.WriteElementString("speed", TotalSpeed.ToString());
-			objWriter.WriteElementString("pilot", Pilot.ToString());
+			objWriter.WriteElementString("pilot", TotalPilot.ToString());
 			objWriter.WriteElementString("body", TotalBody.ToString());
 			objWriter.WriteElementString("armor", TotalArmor.ToString());
 			objWriter.WriteElementString("seats", _intSeats.ToString());
@@ -14410,7 +14446,7 @@ namespace Chummer
 		/// <summary>
 		/// Handling.
 		/// </summary>
-		public int Handling
+		public int BaseHandling
 		{
 			get
 			{
@@ -14422,11 +14458,35 @@ namespace Chummer
 			}
 		}
 
+		public int TotalHandling
+		{
+			get
+			{
+				return _intTotalHandling;
+			}
+			set
+			{
+				_intTotalHandling = value;
+			}
+		}
+
+		public string StrHandling
+		{
+			get
+			{
+				if (_intOffroadHandling > 0)
+				{
+					return TotalHandling + "/" + TotalOffroadHandling;
+				}
+				else return TotalHandling.ToString();
+			}
+		}
+
 
 		/// <summary>
 		/// Seats.
 		/// </summary>
-		public int Seats
+		public int BaseSeats
 		{
 			get
 			{
@@ -14438,11 +14498,23 @@ namespace Chummer
 			}
 		}
 
+		public int TotalSeats
+		{
+			get
+			{
+				return _intTotalSeats;
+			}
+			set
+			{
+				_intTotalSeats = value;
+			}
+		}
+
 
 		/// <summary>
 		/// Offroad Handling.
 		/// </summary>
-		public int OffroadHandling
+		public int BaseOffroadHandling
 		{
 			get
 			{
@@ -14454,10 +14526,22 @@ namespace Chummer
 			}
 		}
 
+		public int TotalOffroadHandling
+		{
+			get
+			{
+				return _intTotalOffroadHandling;
+			}
+			set
+			{
+				_intTotalOffroadHandling = value;
+			}
+		}
+
 		/// <summary>
 		/// Acceleration.
 		/// </summary>
-		public int Accel
+		public int BaseAccel
 		{
 			get
 			{
@@ -14469,10 +14553,22 @@ namespace Chummer
 			}
 		}
 
+		public int TotalAccel
+		{
+			get
+			{
+				return _intTotalAccel;
+			}
+			set
+			{
+				_intTotalAccel = value;
+			}
+		}
+
 		/// <summary>
 		/// Speed.
 		/// </summary>
-		public int Speed
+		public int BaseSpeed
 		{
 			get
 			{
@@ -14484,28 +14580,26 @@ namespace Chummer
 			}
 		}
 
-		/// <summary>
-		/// Pilot.
-		/// </summary>
-		public int Pilot
+		public int TotalSpeed
 		{
 			get
 			{
-				int intReturn = _intPilot;
-				foreach (VehicleMod objMod in _lstVehicleMods)
-				{
-					if (!objMod.IncludedInVehicle && objMod.Installed && objMod.Bonus != null)
-					{
-						// Set the Vehicle's Pilot to the Modification's bonus.
-						if (objMod.Bonus.InnerXml.Contains("<pilot>"))
-						{
-							int intTest = Convert.ToInt32(objMod.Bonus["pilot"].InnerText.Replace("Rating", objMod.Rating.ToString()));
-							if (intTest > intReturn)
-								intReturn = intTest;
-						}
-					}
-				}
-				return intReturn;
+				return _intTotalSpeed;
+			}
+			set
+			{
+				_intTotalSpeed = value;
+			}
+		}
+
+		/// <summary>
+		/// Pilot.
+		/// </summary>
+		public int BasePilot
+		{
+			get
+			{
+				return _intPilot;
 			}
 			set
 			{
@@ -14513,10 +14607,22 @@ namespace Chummer
 			}
 		}
 
+		public int TotalPilot
+		{
+			get
+			{
+				return _intTotalPilot;
+			}
+			set
+			{
+				_intTotalPilot = value;
+			}
+		}
+
 		/// <summary>
 		/// Body.
 		/// </summary>
-		public int Body
+		public int BaseBody
 		{
 			get
 			{
@@ -14528,10 +14634,22 @@ namespace Chummer
 			}
 		}
 
+		public int TotalBody
+		{
+			get
+			{
+				return _intTotalBody;
+			}
+			set
+			{
+				_intTotalBody = value;
+			}
+		}
+
 		/// <summary>
 		/// Armor.
 		/// </summary>
-		public int Armor
+		public int BaseArmor
 		{
 			get
 			{
@@ -14543,10 +14661,23 @@ namespace Chummer
 			}
 		}
 
+		public int TotalArmor
+		{
+			get
+			{
+				return _intTotalArmor;
+			}
+			set
+			{
+				_intTotalArmor = value;
+			}
+		}
+
+
 		/// <summary>
 		/// Sensor.
 		/// </summary>
-		public int Sensor
+		public int BaseSensor
 		{
 			get
 			{
@@ -14557,6 +14688,19 @@ namespace Chummer
 				_intSensor = value;
 			}
 		}
+
+		public int TotalSensor
+		{
+			get
+			{
+				return _intTotalSensor;
+			}
+			set
+			{
+				_intTotalSensor = value;
+			}
+		}
+
 
 		/// <summary>
 		/// Device Rating.
@@ -14673,7 +14817,7 @@ namespace Chummer
 		/// <summary>
 		/// Availability.
 		/// </summary>
-		public string Avail
+		public string BaseAvail
 		{
 			get
 			{
@@ -14685,10 +14829,22 @@ namespace Chummer
 			}
 		}
 
+		public string TotalAvail
+		{
+			get
+			{
+				return _strTotalAvail;
+			}
+			set
+			{
+				_strTotalAvail = value;
+			}
+		}
+
 		/// <summary>
 		/// Cost.
 		/// </summary>
-		public string Cost
+		public string BaseCost
 		{
 			get
 			{
@@ -14774,7 +14930,7 @@ namespace Chummer
 		{
 			get
 			{
-				string strReturn = _strAvail;
+				string strReturn = _strTotalAvail;
 
 				// Translate the Avail string.
 				strReturn = strReturn.Replace("R", LanguageManager.Instance.GetString("String_AvailRestricted"));
@@ -15194,34 +15350,83 @@ namespace Chummer
 			}
 		}
 
+		public int ApplySingleMod(VehicleMod objMod, int baseValue, string strValue)
+		{
+			if (!objMod.IncludedInVehicle && objMod.Installed)
+			{
+				XmlDocument objXmlDocument = new XmlDocument();
+				XPathNavigator nav = objXmlDocument.CreateNavigator();
+
+				// Replace any keywords in the equation with the relevant value
+				string strBonusCalc = objMod.Bonus["body"].InnerText.Replace("Rating", objMod.Rating.ToString());
+				strBonusCalc = strBonusCalc.Replace("Body", _intTotalBody.ToString());
+				strBonusCalc = strBonusCalc.Replace("Offroad Handling", _intTotalOffroadHandling.ToString());
+				strBonusCalc = strBonusCalc.Replace("Handling", _intTotalHandling.ToString());
+				strBonusCalc = strBonusCalc.Replace("Speed", _intTotalSpeed.ToString());
+				strBonusCalc = strBonusCalc.Replace("Pilot", _intTotalSpeed.ToString());
+				strBonusCalc = strBonusCalc.Replace("Armor", _intTotalSpeed.ToString());
+				strBonusCalc = strBonusCalc.Replace("Sensor", _intTotalSpeed.ToString());
+				strBonusCalc = strBonusCalc.Replace("Acceleration", _intTotalAccel.ToString());
+
+				// Solve the equation
+				XPathExpression xprBonus = nav.Compile(strBonusCalc);
+
+				if (objMod.Bonus["body"].InnerText.StartsWith("+") || objMod.Bonus["body"].InnerText.StartsWith("-"))
+				{
+					// Add the bonus to the current total (can be negative to reduce the total)
+					baseValue += Convert.ToInt32(nav.Evaluate(xprBonus).ToString());
+				}
+				else
+				{
+					// Otherwise the current total becomes the bonus
+					// If this happens without 'overrides' being set, we should probably look into it.
+					baseValue = Convert.ToInt32(nav.Evaluate(xprBonus).ToString());
+				}
+			}
+
+			return baseValue;
+		}
+
 		// Apply all modifications from addon equipment
 		public void ApplyModifications()
 		{
-			int intTotalHandling = _intHandling;
-			int intTotalOffroadHandling = _intOffroadHandling;
-			int intTotalAccel = _intAccel;
-			int intTotalSpeed = _intSpeed;
-			int intTotalPilot = _intPilot;
-			int intTotalBody = _intBody;
-			int intTotalArmor = _intArmor;
-			int intTotalSensor = _intSensor;
-			int intTotalSeats = _intSeats;
-			int intTotalModslots = _intModslots;
-			string strTotalAvail = _strAvail;
-			string strTotalCost = _strCost;
+			_intTotalHandling = _intHandling;
+			_intTotalOffroadHandling = _intOffroadHandling;
+			_intTotalAccel = _intAccel;
+			_intTotalSpeed = _intSpeed;
+			_intTotalPilot = _intPilot;
+			_intTotalBody = _intBody;
+			_intTotalArmor = _intArmor;
+			_intTotalSensor = _intSensor;
+			_intTotalSeats = _intSeats;
+			_intTotalModslots = _intModslots;
+			//_strTotalAvail = _strAvail;
+			//string strTotalCost = _strCost;
 
-			List<VehicleMod> depends = new List<VehicleMod>();
-			
-			// Loop through each Mod to process independent mods and save dependant ones
-			foreach (VehicleMod objMod in _lstVehicleMods)
+			//List<VehicleMod> depends = new List<VehicleMod>();
+
+			// Get all mods that change the body of the vehicle
+			List<VehicleMod> lstFoundMods = _lstVehicleMods.FindAll(m => m.Bonus.InnerXml.Contains("body"));
+			bool blnOverride = false;
+			foreach (VehicleMod objMod in lstFoundMods)
 			{
-				if (!objMod.IncludedInVehicle && objMod.Installed && objMod.Bonus != null)
-				{
+				// If blnOverride was set then a previous Mod is forbidding modification of this stat
+				if (blnOverride) continue;
 				
+				if (objMod.Tags.InnerXml.Contains("overrides"))
+				{
+					blnOverride = true;
 				}
+
+				// Calc the change, if any, and apply it to the vehicle's total
+				_intTotalBody = ApplySingleMod(objMod, _intTotalBody, "body");
 			}
 		}
+		
 
+
+		
+		/*
 		/// <summary>
 		/// Total Speed of the Vehicle including Modifications.
 		/// </summary>
@@ -15396,7 +15601,7 @@ namespace Chummer
 				return intBaseArmor + intModArmor;
 			}
 		}
-
+		*/
 		/// <summary>
 		/// Maximum amount of each Armor type the Vehicle can hold.
 		/// </summary>

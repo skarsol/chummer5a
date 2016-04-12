@@ -562,7 +562,7 @@ namespace Chummer
 				//Used for the Armor modifications.
 				else if (objXmlMod["rating"].InnerText.ToLower() == "body")
 				{
-					nudRating.Maximum = _objVehicle.Body;
+					nudRating.Maximum = _objVehicle.TotalBody;
 					nudRating.Minimum = 1;
 					nudRating.Enabled = true;
 					lblRatingLabel.Text = LanguageManager.Instance.GetString("Label_Body");
@@ -570,7 +570,7 @@ namespace Chummer
 				//Used for Metahuman Adjustments.
 				else if (objXmlMod["rating"].InnerText.ToLower() == "seats")
 				{
-					nudRating.Maximum = _objVehicle.Seats;
+					nudRating.Maximum = _objVehicle.TotalSeats;
 					nudRating.Minimum = 1;
 					nudRating.Enabled = true;
 					lblRatingLabel.Text = LanguageManager.Instance.GetString("Label_Qty");
@@ -696,14 +696,14 @@ namespace Chummer
 		private string ReplaceStrings(string strInput)
 		{
 			strInput = strInput.Replace("Rating", nudRating.Value.ToString());
-			strInput = strInput.Replace("Vehicle Cost", _objVehicle.Cost.ToString());
+			strInput = strInput.Replace("Vehicle Cost", _objVehicle.TotalCost.ToString());
 			strInput = strInput.Replace("Weapon Cost", _intWeaponCost.ToString());
 			strInput = strInput.Replace("Total Cost", _intTotalWeaponCost.ToString());
-			strInput = strInput.Replace("Body", _objVehicle.Body.ToString());
-			strInput = strInput.Replace("Handling", _objVehicle.Handling.ToString());
-			strInput = strInput.Replace("Offroad Handling", _objVehicle.OffroadHandling.ToString());
-			strInput = strInput.Replace("Speed", _objVehicle.Speed.ToString());
-			strInput = strInput.Replace("Acceleration", _objVehicle.Accel.ToString());
+			strInput = strInput.Replace("Body", _objVehicle.TotalBody.ToString());
+			strInput = strInput.Replace("Handling", _objVehicle.TotalHandling.ToString());
+			strInput = strInput.Replace("Offroad Handling", _objVehicle.TotalOffroadHandling.ToString());
+			strInput = strInput.Replace("Speed", _objVehicle.TotalSpeed.ToString());
+			strInput = strInput.Replace("Acceleration", _objVehicle.TotalAccel.ToString());
 
 			return strInput;
 		}

@@ -123,7 +123,7 @@ namespace Chummer
 					}
 					try
 					{
-						string objValue = objTemp.TotalHandling;
+						string objValue = objTemp.StrHandling;
 					}
 					catch
 					{
