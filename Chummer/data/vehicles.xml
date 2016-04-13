@@ -2733,7 +2733,7 @@
 			<weapons>
 			</weapons>
 			<mods>
-				<mod>Drone Arm</mod>
+				<name>Drone Arm</name>
 			</mods>
 			<gears>
 				<gear rating="2">Sensor Array</gear>
@@ -6371,7 +6371,7 @@
 			<slots>1</slots>
 			<avail>8</avail>
 			<cost>4000</cost>
-			<source>R5</source>
+			<source>R5</source>prolet
 			<page>166</page>
 		</mod>
 		<mod>
